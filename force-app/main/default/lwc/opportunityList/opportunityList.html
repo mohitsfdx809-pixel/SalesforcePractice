@@ -1,0 +1,63 @@
+<template>
+    <lightning-card title="Opportunity Manager" icon-name="standard:opportunity">
+
+        <div class="slds-p-around_medium">
+
+            <!-- Search -->
+            <lightning-input
+                type="search"
+                label="Search Opportunity"
+                placeholder="Search by opportunity name..."
+                value={searchKey}
+                onchange={handleSearch}>
+            </lightning-input>
+
+            <!-- Stage Filter -->
+            <lightning-combobox
+                label="Stage"
+                value={selectedStage}
+                options={stageOptions}
+                onchange={handleStageChange}>
+            </lightning-combobox>
+
+            <!-- New Opportunity -->
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    variant="brand"
+                    label="New Opportunity"
+                    onclick={handleNewOpportunity}>
+                </lightning-button>
+            </div>
+
+        </div>
+
+        <!-- Spinner -->
+        <template if:true={isLoading}>
+            <lightning-spinner
+                alternative-text="Loading">
+            </lightning-spinner>
+        </template>
+
+        <!-- Error -->
+        <template if:true={error}>
+            <div class="slds-text-color_error slds-p-around_medium">
+                Error loading opportunities.
+            </div>
+        </template>
+
+        <!-- Datatable -->
+        <template if:true={filteredOpportunities}>
+           <div class="datatable-container">
+                <c-opportunity-datatable
+                    key-field="Id"
+                    data={tableData}
+                    columns={columns}
+                    draft-values={draftValues}
+                    onsave={handleSave}
+                    hide-checkbox-column>
+                </c-opportunity-datatable>
+        </div>
+        </template>
+
+    </lightning-card>
+</template>

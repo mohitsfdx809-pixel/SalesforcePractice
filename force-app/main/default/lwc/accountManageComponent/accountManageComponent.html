@@ -1,0 +1,38 @@
+<template>
+    <div>
+        <h2>Account Records</h2>
+        <lightning-datatable
+            key-field="accountId"
+            data={accounts}
+            columns={columns}
+            onrowselection={handleRowAction}
+            ></lightning-datatable>
+    </div>
+    <div>
+        <h2>Related Opportunity Records</h2>
+        <template if:true={opportunityData.length}> 
+            <lightning-datatable
+                key-field="Id"
+                data={opportunityData}
+                columns={opportunityColumns}
+                ></lightning-datatable>
+        </template>
+        <template if:false={opportunityData.length}>
+            <p>No related opportunity records found.</p>
+        </template>
+
+    </div>
+    <div>
+        <h2>Related Case Records</h2>
+        <template if:true={casesData.length}> 
+            <lightning-datatable
+                key-field="Id"
+                data={casesData}
+                columns={caseColumns}
+                ></lightning-datatable>
+        </template>
+        <template if:false={casesData.length}>
+            <p>No related case records found.</p>
+        </template>
+    </div>
+</template>

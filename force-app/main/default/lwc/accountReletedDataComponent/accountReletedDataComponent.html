@@ -1,0 +1,41 @@
+<template>
+
+    <lightning-card icon-name="standard:account" title="Account Related Data" variant="base">
+        <lightning-combobox
+          name="Name"
+          label="Select Account"
+          placeholder="Select Account"
+          options={accountOptions}
+          onchange={handleAccountChange}
+        ></lightning-combobox>
+        <div>
+            <div>
+                Related Cases
+                <template if:true={cases.length}>
+                    <lightning-datatable
+                      key-field="Id"
+                      data={cases}
+                      columns={caseColumns}
+                    ></lightning-datatable>
+                </template>
+                <template if:false={cases.length}>
+                    <p>No related cases found.</p>
+                </template>
+            </div>
+            <div>
+                Related Contacts
+                <template if:true={contacts.length}>
+                    <lightning-datatable
+                      key-field="Id"
+                      data={contacts}
+                      columns={contactColumns}
+                    ></lightning-datatable>
+                </template>
+                <template if:false={contacts.length}>
+                    <p>No related contacts found.</p>
+                </template>
+            </div>
+        </div>
+    </lightning-card>
+
+</template>

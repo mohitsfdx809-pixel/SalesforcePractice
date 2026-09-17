@@ -1,0 +1,30 @@
+<template>
+    <lightning-card icon-name="standard:lead" variant="base">
+        <lightning-combobox
+          name="StageName"
+          label="Stage"
+          placeholder="Select Stage"
+          options={stageOptions}
+          onchange={handleStageChange} 
+           
+        ></lightning-combobox>
+        <lightning-input 
+          type="checkbox" 
+          label="Show Close Date"
+          checked={showCloseDate}
+          onchange={handleShowCloseDate}
+        ></lightning-input>
+        <div class="slds-var-p-around_small">
+            <template lwc:if={opportunityList.length}>
+                <lightning-datatable
+                  key-field="Id"
+                  data={opportunityList}
+                  columns={columns}
+                  sorted-by={sortBy}
+                  sorted-direction={sortDirection}
+                  onsort={handleSort}
+                ></lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>

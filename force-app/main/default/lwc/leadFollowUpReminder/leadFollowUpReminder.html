@@ -1,0 +1,120 @@
+<template>
+
+    <lightning-card
+        title="Follow-Up Reminder"
+        icon-name="standard:lead">
+
+        <div class="container">
+
+            <template if:true={lead}>
+
+                <div class="info">
+
+                    <p>
+                        <strong>Created Date:</strong>
+                        <lightning-formatted-date-time
+                            value={lead.CreatedDate}
+                            year="numeric"
+                            month="short"
+                            day="2-digit">
+                        </lightning-formatted-date-time>
+                    </p>
+
+                    <p>
+                        <strong>Last Activity:</strong>
+
+                        <template if:true={lead.LastActivityDate}>
+                            <lightning-formatted-date-time
+                                value={lead.LastActivityDate}
+                                year="numeric"
+                                month="short"
+                                day="2-digit">
+                            </lightning-formatted-date-time>
+                        </template>
+
+                        <template if:false={lead.LastActivityDate}>
+                            No Activity
+                        </template>
+
+                    </p>
+
+                </div>
+
+
+                <!-- Warning -->
+
+                <template if:true={isFollowUpRequired}>
+
+                    <div class="warning">
+
+                        <lightning-icon
+                            icon-name="utility:warning"
+                            size="small"
+                            alternative-text="Warning">
+                        </lightning-icon>
+
+                        <span>
+                            {reminderMessage}
+                        </span>
+
+                    </div>
+
+
+                    <lightning-button
+                        label="Mark Follow-Up Done"
+                        variant="brand"
+                        onclick={handleFollowUpDone}
+                        disabled={isSaving}>
+                    </lightning-button>
+
+                </template>
+
+
+                <!-- Completed -->
+
+                <template if:false={isFollowUpRequired}>
+
+                    <div class="completed">
+
+                        <lightning-icon
+                            icon-name="utility:success"
+                            size="small"
+                            alternative-text="Completed">
+                        </lightning-icon>
+
+                        <span>
+                            Follow-Up completed or no follow-up is currently required.
+                        </span>
+
+                    </div>
+
+                </template>
+
+
+                <!-- Spinner -->
+
+                <template if:true={isSaving}>
+
+                    <lightning-spinner
+                        alternative-text="Saving..."
+                        size="small">
+                    </lightning-spinner>
+
+                </template>
+
+            </template>
+
+
+            <template if:true={error}>
+
+                <div class="error">
+                    Unable to load Lead information.
+                </div>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>
